@@ -4,8 +4,25 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="stylesheets/style.css">
+    <script src="javascript/main.js" defer></script>
 </head>
 <body>
-
+    <div id="menu">
+        <button id="btnOpen" type="button">Add joke</button>
+        <dialog id="dialog">
+            <form id="form">
+                <div>
+                    <label for="type">Type:</label>
+                    <input type="text" id="type" required>
+                </div>
+                <div>
+                    <label for="joke-input">Joke:</label>
+                    <input type="text" id="joke-input" required>
+                </div>
+                <button id="btnCreate" type="submit">Create</button>
+                <button id="btnClose" type="button">X</button>
+            </form>
+        </dialog>
+    </div>
 </body>
 </html>
