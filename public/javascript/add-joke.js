@@ -11,6 +11,8 @@ const form = document.getElementById('form');
 const messageBox = document.getElementById('message');
 const newJoke = document.getElementById('new-joke');
 
+let timerId = null;
+
 btnOpen.addEventListener('click', (e) => {
     e.preventDefault();
     dialogMenu.showModal();
@@ -50,13 +52,11 @@ async function addJoke(){
         typeInput.value = '';
         jokeInput.value = '';
         dialogMenu.close();
-        showMessage();
+        showMessage("New joke was added successfully!", "success");
         showLastJoke(joke.type, joke.value);
     } catch (err) {
         showMessage(err.message, 'error');
         console.error(err);
-        typeInput.value = '';
-        jokeInput.value = '';
         }
 }
 
@@ -64,14 +64,25 @@ function showMessage(text, type){
     if(type === "error"){
         messageBox.classList.remove('success');
         messageBox.classList.add('error');
-        messageBox.innerHTML = text;
-    } else {
+        messageBox.textContent = text;
+        setTimer();
+    } else if(type === "success") {
         messageBox.classList.remove('error');
         messageBox.classList.add('success');
-        messageBox.innerHTML = "New joke was added successfully!";
+        messageBox.textContent = text;
+        setTimer();
     }
 }
 
 function showLastJoke(type, value){
-    newJoke.innerHTML = `Your last added joke is: ${type}: ${value}`;
+    newJoke.textContent = `Your last added joke is: ${type}: ${value}`;
+}
+
+function setTimer(){
+    if(timerId !== null){
+        clearTimeout(timerId);
+    }
+    timerId = setTimeout(()=>{
+        messageBox.textContent = '';
+    }, 10_000)
 }

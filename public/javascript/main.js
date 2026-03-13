@@ -3,6 +3,11 @@
 
 const scene = document.getElementById('joke');
 
+const defaultJoke = {
+    type: "Lustiger Spruch",
+    value: "Fehler: Tastatur nicht angeschlossen. Bitte Taste F1 drücken!"
+};
+
 window.onload = getJoke;
 
 setInterval(() => {
@@ -16,9 +21,9 @@ async function getJoke(){
             throw new Error(`Error while getJoke: ${response.statusText} (${response.status})`);
         }
         const joke = await response.json();
-        scene.innerHTML = `${joke.type}: ${joke.value}`;
+        scene.textContent = `${joke.type}: ${joke.value}`;
     } catch (e){
         console.error(e);
-        scene.innerHTML = `Error: default`;
+        scene.textContent = `Da ein Fehler aufgetreten ist, ist hier ein default Witze: ${defaultJoke.type}: ${defaultJoke.value}`;
     }
 }
